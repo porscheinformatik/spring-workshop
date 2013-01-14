@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://crm" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://crm" targetNamespace="http://crm">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://crm">
+
+    <complexType name="CustomerType">
+    	<sequence>
+    		<element maxOccurs="1" minOccurs="1" name="lastName" type="string">
+    		</element>
+    		<element maxOccurs="1" minOccurs="0" name="firstName" type="string">
+    		</element>
+    		<element maxOccurs="1" minOccurs="0" name="title" type="string">
+    		</element>
+    		<sequence>
+    			<element maxOccurs="unbounded" minOccurs="0" name="address" type="tns:AddressType">
+    			</element>
+    		</sequence>
+    		<sequence>
+    			<element maxOccurs="unbounded" minOccurs="0" name="telefon" type="tns:TelefonType">
+    			</element>
+    		</sequence>
+
+    	</sequence>
+    	<attribute name="uuid" type="int"/>
+    </complexType>
+    <complexType name="AddressType">
+    	<sequence>
+    		<element maxOccurs="1" minOccurs="1" name="street" type="string"/>
+    		<element maxOccurs="1" minOccurs="1" name="zip" type="string"/>
+    		<element maxOccurs="1" minOccurs="1" name="city" type="string"/>
+    		<element maxOccurs="1" minOccurs="0" name="country" type="string"/>
+    	</sequence>
+    	<attribute name="default" type="boolean" use="required"/>
+    </complexType>
+    <complexType name="TelefonType">
+    	<sequence>
+    		<element maxOccurs="1" minOccurs="1" name="number" type="string"/>
+    		<choice maxOccurs="1" minOccurs="1">
+    			<element name="mobile" type="boolean"/>
+    			<element name="home" type="boolean"/>
+    			<element name="office" type="boolean"/>
+    		</choice>
+    		<element maxOccurs="1" minOccurs="0" name="countryCode" type="string"/>
+    	</sequence>
+    	<attribute name="default" type="boolean" use="required"/>
+    </complexType>
+
+    <element name="GetCustomerRequest" type="int"/>
+
+    <element name="GetCustomerResponse" type="tns:CustomerType"/>
+
+    <element name="SaveCustomerRequest" type="tns:CustomerType"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="GetCustomerRequest">
+    <wsdl:part element="tns:GetCustomerRequest" name="GetCustomerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SaveCustomerRequest">
+    <wsdl:part element="tns:SaveCustomerRequest" name="SaveCustomerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCustomerResponse">
+    <wsdl:part element="tns:GetCustomerResponse" name="GetCustomerResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Crm">
+    <wsdl:operation name="GetCustomer">
+      <wsdl:input message="tns:GetCustomerRequest" name="GetCustomerRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:GetCustomerResponse" name="GetCustomerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCustomer">
+      <wsdl:input message="tns:SaveCustomerRequest" name="SaveCustomerRequest">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CrmSoap11" type="tns:Crm">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetCustomer">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetCustomerRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetCustomerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCustomer">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SaveCustomerRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CrmService">
+    <wsdl:port binding="tns:CrmSoap11" name="CrmSoap11">
+      <soap:address location="http://localhost:8081/crm-ws/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

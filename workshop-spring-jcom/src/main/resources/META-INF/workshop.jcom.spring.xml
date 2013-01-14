@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="workshop.spring.jcom.CrmReader" class="workshop.spring.jcom.CrmReader"
+		scope="prototype">
+		<constructor-arg name="crm">
+			<bean class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+				<property name="serviceInterface" value="crm.Crm" />
+				<property name="portName" value="CrmSoap11" />
+				<property name="serviceName" value="CrmService" />
+				<property name="endpointAddress" value="http://localhost:8081/crm-ws/" />
+				<property name="namespaceUri" value="http://crm" />
+				<property name="wsdlDocumentUrl" value="classpath:crm.wsdl" />
+			</bean>
+		</constructor-arg>
+		<constructor-arg name="itemReader">
+			<bean class="org.springframework.batch.item.file.FlatFileItemReader">
+				<property name="encoding" value="UTF-8" />
+				<property name="lineMapper">
+					<bean
+						class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+						<property name="lineTokenizer">
+							<bean
+								class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+								<property name="delimiter" value="|" />
+								<property name="names" value="id,lastName,firstName" />
+							</bean>
+						</property>
+						<property name="fieldSetMapper">
+							<bean class="workshop.spring.jcom.ContactFieldSetMapper" />
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</constructor-arg>
+	</bean>
+</beans>

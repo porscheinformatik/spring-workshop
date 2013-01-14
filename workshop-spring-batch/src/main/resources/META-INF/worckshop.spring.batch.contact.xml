@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="contactReader"
+        class="workshop.spring.batch.MultilineContactItemReader">
+        <constructor-arg>
+            <bean class="org.springframework.batch.item.file.FlatFileItemReader">
+                <property name="encoding" value="UTF-8" />
+                <property name="resource" value="classpath:contacts.csv" />
+                <property name="lineMapper">
+                    <bean
+                        class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                        <property name="lineTokenizer">
+                            <bean
+                                class="org.springframework.batch.item.file.transform.PatternMatchingCompositeLineTokenizer">
+                                <property name="tokenizers">
+                                    <map>
+                                        <entry key="C*">
+                                            <bean
+                                                class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                                                <property name="delimiter" value="|" />
+                                                <property name="names"
+                                                    value="recordType,firstName,lastName" />
+                                            </bean>
+                                        </entry>
+                                        <entry key="P*">
+                                            <bean
+                                                class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                                                <property name="delimiter" value="|" />
+                                                <property name="names" value="recordType,number" />
+                                            </bean>
+                                        </entry>
+                                    </map>
+                                </property>
+                            </bean>
+                        </property>
+                        <property name="fieldSetMapper">
+                            <bean
+                                class="org.springframework.batch.item.file.mapping.PassThroughFieldSetMapper" />
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+</beans>

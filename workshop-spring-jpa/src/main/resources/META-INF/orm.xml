@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="2.0">
+    
+    <description>Named Query which is defined directly in the Spring Configuration File for the Session Factory</description>
+
+	<named-query name="findByLastName">
+		<query>
+			<![CDATA[
+				from Contact where lastName=:lastName
+			]]>
+		</query>
+	</named-query>
+</entity-mappings>

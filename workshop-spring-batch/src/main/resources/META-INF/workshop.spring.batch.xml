@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/batch"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/batch 
+           http://www.springframework.org/schema/batch/spring-batch-2.1.xsd">
+
+	<beans:import resource="classpath:META-INF/jpa-spring.xml" />
+
+
+	<beans:bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<beans:property name="transactionManager" ref="transactionManager" />
+		<beans:property name="isolationLevelForCreate" value="ISOLATION_DEFAULT" />
+	</beans:bean>
+
+	<beans:bean
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<beans:property name="jobRepository" ref="jobRepository" />
+	</beans:bean>
+
+	<job id="importJob">
+		<step id="importStep">
+			<tasklet transaction-manager="transactionManager">
+				<chunk reader="contactReader" writer="dbWriter" commit-interval="2" />
+			</tasklet>
+		</step>
+	</job>
+
+
+
+	<beans:bean id="dbWriter"
+		class="org.springframework.batch.item.database.JpaItemWriter">
+		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />
+	</beans:bean>
+
+
+</beans:beans>
+

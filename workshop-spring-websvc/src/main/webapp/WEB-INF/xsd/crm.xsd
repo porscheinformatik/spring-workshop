@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://crm" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://crm">
+
+    <complexType name="CustomerType">
+    	<sequence>
+    		<element name="lastName" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="firstName" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="title" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<sequence>
+    			<element name="address" type="tns:AddressType"
+    				maxOccurs="unbounded" minOccurs="0">
+    			</element>
+    		</sequence>
+    		<sequence>
+    			<element name="telefon" type="tns:TelefonType"
+    				maxOccurs="unbounded" minOccurs="0">
+    			</element>
+    		</sequence>
+
+    	</sequence>
+    	<attribute name="uuid" type="int"></attribute>
+    </complexType>
+    <complexType name="AddressType">
+    	<sequence>
+    		<element name="street" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="zip" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="city" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<element name="country" type="string" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="default" type="boolean" use="required"></attribute>
+    </complexType>
+    <complexType name="TelefonType">
+    	<sequence>
+    		<element name="number" type="string" maxOccurs="1" minOccurs="1"></element>
+    		<choice maxOccurs="1" minOccurs="1">
+    			<element name="mobile" type="boolean"></element>
+    			<element name="home" type="boolean"></element>
+    			<element name="office" type="boolean"></element>
+    		</choice>
+    		<element name="countryCode" type="string" maxOccurs="1" minOccurs="0"></element>
+    	</sequence>
+    	<attribute name="default" type="boolean" use="required"></attribute>
+    </complexType>
+
+    <element name="GetCustomerRequest" type="int"></element>
+
+    <element name="GetCustomerResponse" type="tns:CustomerType"></element>
+
+    <element name="SaveCustomerRequest" type="tns:CustomerType"></element>
+</schema>

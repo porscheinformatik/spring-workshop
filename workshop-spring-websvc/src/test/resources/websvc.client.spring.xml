@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="crmClient"
+		class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+		<property name="serviceInterface" value="crmclient.Crm" />
+		<property name="portName" value="CrmSoap11"/>
+		<property name="serviceName" value="CrmService"/>
+        <property name="endpointAddress" value="http://localhost:8081/crm-ws/" />
+        <property name="namespaceUri" value="http://crm"/>
+        <property name="wsdlDocumentUrl" value="classpath:crm.wsdl" />
+	</bean>
+
+</beans>
