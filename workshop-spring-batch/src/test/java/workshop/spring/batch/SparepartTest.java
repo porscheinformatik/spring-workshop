@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
-import org.testng.xml.LaunchSuite.ExistingSuite;
 
 @ContextConfiguration(locations="classpath:META-INF/sparepart.spring.batch.xml")
 public class SparepartTest extends AbstractTestNGSpringContextTests

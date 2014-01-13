@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import workshop.spring.jpa.entities.Contact;
 import workshop.spring.jpa.entities.Phone;
 
+@Test(groups="single")
 public class CrmHibernateRepositoryTest
 {
     private CrmHibernateRepository target;

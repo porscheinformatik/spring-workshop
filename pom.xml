@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>workshop.spring</groupId>
-	<artifactId>parent</artifactId>
+	<artifactId>workshop-spring-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -19,11 +20,12 @@
 	</developers>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.0.5.RELEASE</spring.version>
-		<slf4j.version>1.6.1</slf4j.version>
+		<spring.version>3.2.4.RELEASE</spring.version>
+		<slf4j.version>1.7.5</slf4j.version>
+		<logback.version>1.0.13</logback.version>
 		<hibernate.version>3.6.0.CR2</hibernate.version>
-		<poco.utils.version>12.02</poco.utils.version>
 		<aspectj.version>1.6.9</aspectj.version>
+		<compileSource>1.7</compileSource>
 	</properties>
 	<modules>
 		<module>workshop-spring-jpa</module>
@@ -31,9 +33,8 @@
 		<module>workshop-spring-aop</module>
 		<module>workshop-spring-batch</module>
 		<module>workshop-spring-data</module>
-    <module>workshop-spring-websvc</module>
-    <module>workshop-spring-jcom</module>
-  </modules>
+		<module>workshop-spring-test</module>
+	</modules>
 	<dependencies>
 		<!-- Hibernate -->
 		<dependency>
@@ -42,6 +43,18 @@
 		</dependency>
 
 		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
@@ -70,18 +83,17 @@
 			<artifactId>logback-classic</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- Databases -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-
-		<!-- Porsche Informatik Commons -->
-		<dependency>
-			<groupId>at.porscheinformatik.common.utils</groupId>
-			<artifactId>poco-exceptions</artifactId>
 		</dependency>
 
 		<dependency>
@@ -194,7 +206,12 @@
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
-				<version>0.9.27</version>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
 			</dependency>
 
 			<!-- Databases -->
@@ -202,13 +219,6 @@
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<version>1.3.149</version>
-			</dependency>
-
-			<!-- Porsche Informatik Commons -->
-			<dependency>
-				<groupId>at.porscheinformatik.common.utils</groupId>
-				<artifactId>poco-exceptions</artifactId>
-				<version>${poco.utils.version}</version>
 			</dependency>
 
 			<dependency>
@@ -226,13 +236,12 @@
 			<dependency>
 				<groupId>org.testng</groupId>
 				<artifactId>testng</artifactId>
-				<version>5.12.1</version>
+				<version>6.8.7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>1.8.5</version>
-				<scope>test</scope>
+				<version>1.9.5</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

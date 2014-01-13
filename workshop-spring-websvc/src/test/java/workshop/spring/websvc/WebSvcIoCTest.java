@@ -5,9 +5,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
-import crmclient.Crm;
-import crmclient.CustomerType;
-import crmclient.ObjectFactory;
+import crm.CustomerType;
+import crm.ObjectFactory;
 
 @ContextConfiguration(locations="classpath:websvc.client.spring.xml")
 public class WebSvcIoCTest  extends AbstractTestNGSpringContextTests

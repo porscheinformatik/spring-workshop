@@ -20,5 +20,4 @@
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager" />
-	<bean class="workshop.spring.data.CrmFacade"></bean>
 </beans>

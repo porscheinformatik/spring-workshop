@@ -8,8 +8,6 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import at.porscheinformatik.common.utils.exception.TechnicalException;
-
 import workshop.spring.jpa.entities.Contact;
 
 /**
@@ -35,7 +33,7 @@ public class CrmSpringRepository implements CrmRepository
         Contact contact = entityManager.find(Contact.class, id);
         if (contact == null)
         {
-            throw new TechnicalException("No Contact with primary key "+id.toString());
+            throw new RuntimeException("No Contact with primary key "+id.toString());
         }
         return contact;
     }

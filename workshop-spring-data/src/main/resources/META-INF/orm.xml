@@ -3,11 +3,4 @@
     
     <description>Named Query which is defined directly in the Spring Configuration File for the Session Factory</description>
 
-    <named-query name="Contact.reportFindAll">
-        <query>
-            <![CDATA[
-                select new workshop.spring.data.ContactReport(lastName) from Contact
-            ]]>
-        </query>
-    </named-query>
 </entity-mappings>

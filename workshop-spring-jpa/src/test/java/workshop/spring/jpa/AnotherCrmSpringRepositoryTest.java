@@ -13,9 +13,10 @@ import org.testng.annotations.Test;
 import workshop.spring.jpa.entities.Contact;
 import workshop.spring.jpa.entities.Phone;
 
+//@ContextConfiguration(locations="classpath:test.jpa-spring.xml")
 @ContextConfiguration(locations="classpath:META-INF/jpa-spring.xml")
 @Test(groups="single")
-public class CrmSpringRepositoryTest extends AbstractTransactionalTestNGSpringContextTests
+public class AnotherCrmSpringRepositoryTest extends AbstractTransactionalTestNGSpringContextTests
 {
     @Autowired
     private CrmRepository target;
@@ -46,5 +47,6 @@ public class CrmSpringRepositoryTest extends AbstractTransactionalTestNGSpringCo
         List<Contact> contacts = target.findContactByLastname("Test");
         assertTrue(contacts.size() > 0);
     }
+
 
 }
